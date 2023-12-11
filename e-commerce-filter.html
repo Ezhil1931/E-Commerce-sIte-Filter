@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    ?<style>
+        *{
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html{
+
+    font-size: 22px;
+}
+body{
+background-color:rgba(76, 231, 15, 0.705);
+padding:1rem;
+
+}
+.box{
+    height: 8rem;
+    border: 5px solid black;
+    border-radius:5px;
+    overflow: hidden;
+   
+}
+.box img{
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition:0.2s;
+    /* transform-origin:top; */
+    
+}
+.box img:hover{
+
+    transform: scale(1.5);
+    
+    
+    }
+.container{
+max-width: 1200px;
+
+margin: 0 auto;
+display: grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+ gap: 1rem;
+}
+.control{
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    padding: 10px 0px;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+}
+.btngrp button{
+width: 100px;
+height: 30px;
+border: none;
+font-size: 0.6rem;
+background-color:orange;
+color: white;
+
+border: 2px solid orange;
+cursor: pointer;
+transition: 0.35s;
+border-radius: 5px;
+
+}  
+.btngrp button:hover,
+.btngrp .btn-clicked
+{
+    background-color:rgba(76, 231, 15, 0.705);
+ 
+}
+#input{
+    width: 200px;
+    height: 30px;
+    outline: none;
+    border: 2px solid  orange;
+    padding: 0px 10px;
+    font-size: 0.6rem;
+    
+}
+.blur{
+    filter: blur(6px);
+}
+.anime{
+
+    animation: anima1 0.5s linear infinite;
+
+}
+
+@keyframes anima1{
+
+    0%{transform:scale(0);}
+    100%{transform: scale(1.5);}
+}
+    </style>
+</head>
+
+<body>
+
+
+    <div class="control">
+        <div class="btngrp">
+            <button class="btn" data-item="all">All</button>
+            <button class="btn" data-item="pizza">Pizza</button>
+            <button class="btn" data-item="cake">Cake</button>
+            <button class="btn" data-item="icecream">IceCream</button>
+            <button class="btn" data-item="burger">burger</button>
+            <button class="btn" data-item="tea">Tea</button>
+        </div>
+
+        <input type="text" id="input" placeholder="Search Food" />
+
+    </div>
+    <div class="container">
+
+
+        <div class="box" data-name="tea">
+            <img src="snack/1 (1).jpg" >
+        </div>
+        <div class="box" data-name="pizza">
+            <img src="snack/1 (2).jpg" >
+        </div>
+        <div class="box"  data-name="burger">
+            <img src="snack/1 (3).jpg">
+        </div>
+
+         <div class="box" data-name="icecream">
+            <img src="snack/1 (4).jpg" >
+        </div>
+        <div class="box" data-name="cake">
+            <img src="snack/1 (5).jpg" >
+        </div>
+        <div class="box" data-name="icecream">
+            <img src="snack/1 (6).jpg" >
+        </div>
+
+        <div class="box" data-name="pizza">
+            <img src="snack/1 (7).jpg" >
+        </div>
+        <div class="box" data-name="tea">
+            <img src="snack/1 (16).jpg" >
+        </div>
+        <div class="box" data-name="pizza">
+            <img src="snack/1 (9).jpg" >
+        </div>
+
+        <div class="box" data-name="burger">
+            <img src="snack/1 (10).jpg" >
+        </div>
+        <div class="box"  data-name="cake">
+            <img src="snack/1 (11).jpg">
+        </div>
+        <div class="box" data-name="iceceram">
+            <img src="snack/1 (12).jpg" >
+        </div>
+        
+        <div class="box" data-name="burger">
+            <img src="snack/1 (13).jpg" >
+        </div>
+        <div class="box" data-name="pizza">
+            <img src="snack/1 (14).jpg" >
+        </div>
+        <div class="box" data-name="icecream">
+            <img src="snack/1 (15).jpg" >
+        </div>
+
+    </div>
+
+
+    <script>
+
+const button=document.querySelectorAll('.btn');
+const box=document.querySelectorAll('.box');
+const search=document.querySelector('#input');
+
+let searchText;
+button[0].classList.add('btn-clicked')
+search.addEventListener('keyup',(e)=>{
+
+searchText=e.target.value.toLowerCase().trim(); 
+box.forEach((box)=>{
+
+const data=box.dataset.name;
+if(data.includes(searchText))
+{
+    box.classList.remove('blur');
+   
+    // box.style.display='block'
+}
+else{
+    box.classList.add('blur');
+ 
+    // box.style.display='block'
+}
+
+
+
+})
+
+});
+
+button.forEach((btn)=>{
+
+btn.addEventListener("click",(e)=>{
+e.preventDefault();
+let data=e.target.dataset.item;
+box.forEach((box)=>{
+const data2=box.dataset.name;
+if(data2==data){
+box.style.display='block'
+
+}
+
+else{
+    box.style.display="none"
+}
+
+})
+if(data=="all"){
+    box.forEach((box)=>{
+box.style.display='block'
+    })
+ 
+}
+setactive(e)
+});
+
+})
+
+const setactive=(e)=>{
+      
+    button.forEach((btn)=>{
+        btn.classList.remove('btn-clicked')
+    });
+
+       e.target.classList.add('btn-clicked')
+}
+
+
+</script>
+</body>
+
+</html>
